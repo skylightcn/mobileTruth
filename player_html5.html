@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="full-screen" content="yes">
+	<meta name="x5-full-screen" content="yes">
+	<link rel="stylesheet" href="css/pure-min.css">
+	<script src="config/videoData.js"></script>
+	<script src="config/audioData.js"></script>
+	<script src="utils/common.js"></script>
+</head>
+<body onload="printTitle();playVideo();">
+    <script>
+	    function getUrlVar() {
+			var resourceStr = getUrlParams().get("resource")
+		    return decodeURI(resourceStr);
+		}
+		
+		function getResource() {
+			return  getUrlVar();
+		}
+		
+		function printTitle() {
+		  let pathSplit=getUrlVar().split('/');
+		  console.log(pathSplit)
+		  let len=pathSplit.length
+		  if(len>0){
+			let fileName=pathSplit[len-1]
+			let title=findFileNameZh(fileName)
+		   document.getElementById('title').innerHTML = title
+		  }
+		}
+
+		function findFileNameZh(fileName) {
+			let fileNamePrefix=fileName.split('.')[0]
+			let title=''
+			let lst=videoData
+			let suffix=''
+			if(fileName.indexOf('mp3')!=-1){
+				lst=audioData
+				suffix='.mp3'
+		   }
+		   for(let i in lst){
+			   let item=lst[i]
+			   let en=item.en
+			   let zh=item.zh
+			   console.log(fileNamePrefix,en)
+			   if(fileNamePrefix===en){
+				title=zh+suffix
+				break
+			   }
+		   }
+		   return title
+		}
+		
+		function playVideo() {
+			var myVideo = document.getElementsByTagName('video')[0];
+			myVideo.src = getResource();
+			myVideo.load();
+			myVideo.play();
+		}
+    </script>
+    
+    
+    <video style="background-color:black;" width="100%" controls>
+		Your browser does not support HTML5 video.
+	</video>
+	<center id="title"></center>
+
+	<iframe src="save.html" width="0" height="0"></iframe>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../css/page.css">
+  <script src="../config/szzdData.js"></script>
+  <script src="../js/vue.js"></script>
+  <script src="../js/vue-clipboard.min.js"></script>
+</head>
+<body>
+
+        <div id="app">
+        <h2 style="text-align: center;">神州正道·网址生成器</h2>
+<div style="margin-bottom: 10px">动态节点: <input type="text" v-model="dynNode" style="width:350px;" /><button style="margin-left: 15px" @click="genUrl()">生成</button></div>
+<table>
+ 
+  <tr>
+    <th >目录名称</th>
+    <th>长效网址命令组合</th>
+    <th>长效短网址命令组合</th>
+  </tr>
+ 
+ 
+  <tr v-for="item in lst">
+    <td>{{item.dirName}}<br/>{{item.dirValue}}</td>
+    <td><input type="text" name="dynNode" v-model="item.longValidUrl" style="width:50%;display:none"/>
+      <button style="margin-left: 15px" 
+      v-clipboard:copy="item.longValidUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(item.longValidUrl)">打开</button></td>
+    <td><input type="text" name="dynNode" v-model="item.longValidShortUrl" style="width:50%;display:none"/>
+      <button style="margin-left: 15px" 
+      v-clipboard:copy="item.longValidShortUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(item.longValidShortUrl)">打开</button></td>
+  
+  </tr>
+ 
+       
+ 
+</table>
+</div>
+<script src="../js/szzd.js"></script>
+</body>
+
+</html>

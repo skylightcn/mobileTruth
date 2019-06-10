@@ -1,0 +1,68 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../css/page.css">
+  <script src="../config/imageData.js"></script>
+  <script src="../js/vue.js"></script>
+  <script src="../js/vue-clipboard.min.js"></script>
+  <script src="../js/axios.min.js"></script>
+  <script src="../utils/common.js"></script>
+
+</head>
+<body>
+        <div id="app">
+        <h2 style="text-align: center;">手机图片·网址生成器</h2>
+<div style="margin-bottom: 10px">&nbsp;&nbsp;trackId: <input type="text" v-model="trackId" style="width:350px;" /><button style="margin-left: 15px" @click="genUrl()">生成</button></div>
+<div style="margin-bottom: 10px">多张图片: <input type="text" v-model="multiPic" style="width:260px;" />
+  <span style="margin-left: 40px">github长网址:</span>
+  <input type="text" name="dynNode" v-model="githubUrl" style="width:50%;display:none"/>
+  <button style="margin-left: 15px" 
+      v-clipboard:copy="githubUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(githubUrl)">打开</button>
+      <span style="margin-left: 40px"> git.io短网址:</span>
+      <button style="margin-left: 15px" @click="genGitIoUrl(githubUrl)">生成</button>
+      <button style="margin-left: 15px" 
+      v-clipboard:copy="gitioUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(gitioUrl)">打开</button>
+      <span style="margin-left: 15px">{{gitioUrl}}</span>
+    </div>
+<table>
+ 
+  <tr>
+    <th >图片名称</th>
+    <th>github长网址</th>
+    <th>git.io短网址</th>
+  </tr>
+ 
+ 
+  <tr v-for="item in lst">
+    <td>{{item.zh}}<br/>{{item.en}}</td>
+    <td><input type="text" name="dynNode" v-model="item.githubUrl" style="width:50%;display:none"/>
+      <button style="margin-left: 15px" 
+      v-clipboard:copy="item.githubUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(item.githubUrl)">打开</button></td>
+    <td><input type="text" name="dynNode" v-model="item.gitioUrl" style="width:50%;display:none"/>
+      <button style="margin-left: 15px" @click="genGitIoUrl(item.githubUrl)">生成</button>
+      <button style="margin-left: 15px" 
+      v-clipboard:copy="item.gitioUrl"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">复制</button>
+      <button style="margin-left: 15px" @click="open(item.gitioUrl)">打开</button>
+      <span style="margin-left: 15px">{{item.gitioUrl}}</span>
+    </td>
+  
+  </tr>
+ 
+       
+ 
+</table>
+</div>
+<script src="../js/image.js"></script>
+</body>
+
+</html>
