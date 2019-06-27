@@ -26,7 +26,7 @@ var app = new Vue({
             console.log('onError',e.text)
           },
           genUrl () {
-            this.baseUrl=location.href.replace('admin/image.html','picshow.html?resource=')
+            this.baseUrl=location.href.replace('admin/image.html','picShow.html?resource=')
             console.log(this.baseUrl)
               this.lst.forEach(item => {
                 let githubUrl=this.baseUrl+item.en+'&trackId='+this.trackId
